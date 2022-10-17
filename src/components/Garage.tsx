@@ -1,40 +1,45 @@
-import React from 'react';
-import Car from './Car';
+import React,{ SyntheticEvent } from 'react';
+import Car, { CapString, Props } from './Car';
 
-interface State {
-    cars: any;
+interface GarageProps {
+    cars: Props[];
+    year: number;
     color: string;
-    buildyear: number;
+    setCars: (cars: Props[]) => void;
 }
-class Garage extends React.Component {
-    state = {
-        color: "red",
-        buildyear: 1964,
-        cars: [
-            (<Car color="red" brand="Mercedes" />),
-            (<Car color="green" brand="Opel" />),
-            (<Car color="yellow" brand="Volkswagen" />),
-            (<Car color="black" brand="Toyoda" />)
-        ]
-    };
+interface IState {
+    year: number;
+    color: string;
+}
+class Garage extends React.Component<GarageProps, IState> {
+    constructor(props: GarageProps) {
+        super(props);
+        this.state = {
+            color: props.color,
+            year: props.year
+        }
+    }
     changeColor = () => {
         this.setState({ color: "blue" });
     }
-    test = (a: string, b: any) => { // events
+    test = (a: string, b: SyntheticEvent) => { // events
         alert(a)
+    }
+    deleteCar = (index: number) => {
+        this.props.setCars(this.props.cars.filter((car, i) => i !== index));
     }
     render() {
         return (
-            <div>
-                <h1>{this.state.color} Garage (built in {this.state.buildyear}) Inventory:</h1>
-                <p>{this.state.cars.length} Cars</p>
-                <ul>
-                    {this.state.cars.map((car: any, index: number) => {
-                        return <li key={index}>{car}</li>
+            <div className="container-fluid">
+                <h1 className="text-bg-secondary">{CapString(this.state.color)} Garage (built in {this.state.year}) Inventory:</h1>
+                <p className="text-sm">{this.props.cars.length} Cars</p>
+                <div className="d-flex flex-wrap">
+                    {this.props.cars.map((car: any, index: number) => {
+                        return <Car deleteCar={this.deleteCar} index={index} key={index} color={car.color} brand={car.brand} year={car.year} />
                     })}
-                </ul>
-                <button type="button" onClick={this.changeColor}>Change Color</button>
-                <button type="button" onClick={(event) => this.test("TEsting", event)}>Test</button>
+                </div>
+                <button className="btn btn-info m-3" type="button" onClick={this.changeColor}>Change Color</button>
+                
             </div>
         )
     }
