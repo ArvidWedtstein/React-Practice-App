@@ -10,7 +10,7 @@ interface IProps {
     brand: string;
     year: number;
     index: number;
-    deleteCar: (index: number) => void;
+    deleteCar: any;
 }
 export function CapString(string: string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -29,7 +29,7 @@ function Car(props: IProps) {
                     <span className="d-inline-block badge bg-secondary rounded px-3 py-1 font-weight-semibold text-bg-secondary mr-2">{CapString(props.color)}</span>
                     <span className="d-inline-block badge bg-success rounded px-3 py-1 text-small font-weight-semibold text-bg-secondary ml-2">{props.year}</span>
                 </div>
-                <button type="button" className="btn btn-secondary my-2 px-4" onClick={() => props.deleteCar(props.index)}>{props.index}</button>
+                <button type="button" className="btn btn-secondary my-2 px-4" onClick={() => props.deleteCar({ type: "delete", payload: props.index })}>{props.index}</button>
             </div>
         </div>
     )

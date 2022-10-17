@@ -3,7 +3,7 @@ import './App.css';
 import Garage from './components/Garage';
 import CarForm from './components/CarForm';
 import Home from './components/Home';
-import { useState, createContext, useContext, useRef, useReducer } from "react";
+import { useState, createContext, useContext, useRef, useReducer, useCallback } from "react";
 import { Props } from './components/Car';
 
 const Cars = [
@@ -20,6 +20,7 @@ const reducer = (state: Props[], action: any) => {
     case "add":
       return [...state, action.payload];
     case "delete":
+      console.log(action.payload);
       return state.filter((car, i) => i !== action.payload);
     default:
       return state;
@@ -38,14 +39,21 @@ function App() {
   //   { "color":"white", "brand":"Fiat", "year":2015 }
   // ]);
 
-  const addCar = (car: Props) => {
-    dispatch([...cars, car]);
-  }
+  const removeCar = ((car: Props) => {
+    dispatch({ type: "delete", payload: car });
+  });
+  const addCar = useCallback((car: Props) => {
+    dispatch({ type: "add", payload: car });
+  }, []);
+
+  // const addCar = (car: Props) => {
+  //   dispatch([...cars, car]);
+  // }
 
 
   return (
     <div className="App">
-      <Garage setCars={dispatch} cars={cars} year={1965} color="red" />
+      <Garage setCars={removeCar} cars={cars} year={1965} color="red" />
       <CarForm cars={cars} addCar={addCar}/>
       <Home />
     </div>

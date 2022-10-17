@@ -5,7 +5,7 @@ interface GarageProps {
     cars: Props[];
     year: number;
     color: string;
-    setCars: (cars: Props[]) => void;
+    setCars: any;
 }
 interface IState {
     year: number;
@@ -25,9 +25,6 @@ class Garage extends React.Component<GarageProps, IState> {
     test = (a: string, b: SyntheticEvent) => { // events
         alert(a)
     }
-    deleteCar = (index: number) => {
-        this.props.setCars(this.props.cars.filter((car, i) => i !== index));
-    }
     render() {
         return (
             <div className="container-fluid">
@@ -35,7 +32,7 @@ class Garage extends React.Component<GarageProps, IState> {
                 <p className="text-sm">{this.props.cars.length} Cars</p>
                 <div className="d-flex flex-wrap">
                     {this.props.cars.map((car: any, index: number) => {
-                        return <Car deleteCar={this.deleteCar} index={index} key={index} color={car.color} brand={car.brand} year={car.year} />
+                        return <Car deleteCar={this.props.setCars} index={index} key={index} color={car.color} brand={car.brand} year={car.year} />
                     })}
                 </div>
                 <button className="btn btn-info m-3" type="button" onClick={this.changeColor}>Change Color</button>
