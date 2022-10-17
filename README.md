@@ -1,3 +1,9 @@
+# Test Project to learn React
+
+Learning resources: [W3Schools](https://www.w3schools.com/react/default.asp)
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
