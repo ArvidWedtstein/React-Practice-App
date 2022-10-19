@@ -1,30 +1,43 @@
 import React from "react";
 import * as THREE from 'three';
 
-
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 
 export default class ViewGL {
     scene: THREE.Scene;
     renderer: THREE.WebGLRenderer;
     camera: THREE.PerspectiveCamera;
-
+    OBJLoader: OBJLoader;
+    MTLLoader: MTLLoader;
     constructor(canvasRef: HTMLCanvasElement) {
         this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color( 0xffffff );
         this.renderer = new THREE.WebGLRenderer({
             canvas: canvasRef,
-            antialias: false
+            antialias: false,
+            
         });
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.OBJLoader = new OBJLoader();
+        this.MTLLoader = new MTLLoader();
 
         this.renderer.setSize(window.innerWidth, window.innerHeight);
+
+        this.camera.lookAt( this.scene.position );
+
         const geometry = new THREE.BoxGeometry( 1, 1, 1 );
         const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
         const cube = new THREE.Mesh( geometry, material );
         this.scene.add( cube );
-        this.camera.position.z = 5;
-        this.update();
-        
+        cube.position.x = 10
 
+        this.OBJ();
+        
+        this.camera.rotation.x = -0.8;
+        this.camera.position.z = 3;
+        this.camera.position.y = 4;
+        this.update();
     }   
 
     updateValue(value: any) {
@@ -44,7 +57,19 @@ export default class ViewGL {
         requestAnimationFrame(this.update.bind(this));
     }
 
-    GLTF() {
-
+    OBJ() {
+        this.MTLLoader.load('./OB.mtl', (materials) => {
+            materials.preload()
+            this.OBJLoader.setMaterials(materials);
+            this.OBJLoader.load('./OB.obj', (obj) => {
+                obj.scale.set(0.2, 0.2, 0.2);
+                obj.position.set(0, 0, 0);
+                this.scene.add(obj);
+            }, (xhr) => {
+                console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+            }, (error) => {
+                console.error(error);
+            })
+        })
     }
 }
