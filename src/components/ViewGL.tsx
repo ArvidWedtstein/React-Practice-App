@@ -57,19 +57,15 @@ export default class ViewGL {
         requestAnimationFrame(this.update.bind(this));
     }
 
-    OBJ() {
-        this.MTLLoader.load('./OB.mtl', (materials) => {
+    OBJ(): void {
+        this.MTLLoader.load('OB.mtl', (materials) => {
             materials.preload()
             this.OBJLoader.setMaterials(materials);
-            this.OBJLoader.load('./OB.obj', (obj) => {
+            this.OBJLoader.load('OB.obj', (obj) => {
                 obj.scale.set(0.2, 0.2, 0.2);
                 obj.position.set(0, 0, 0);
                 this.scene.add(obj);
-            }, (xhr) => {
-                console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-            }, (error) => {
-                console.error(error);
-            })
+            });
         })
     }
 }
