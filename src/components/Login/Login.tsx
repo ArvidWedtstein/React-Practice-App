@@ -45,12 +45,12 @@ export default function Login({ setToken }: any) {
       <form className="row g-3" onSubmit={handleSubmit}>
         <div className="col-auto">
           <label htmlFor="inputEmail" className="visually-hidden">Email</label>
-          <input type="email" className="form-control" id="inputEmail" placeholder="email@example.com" onChange={e => setUserName(e.target.value)} />
+          <input type="email" data-testid="email" className="form-control" id="inputEmail" placeholder="email@example.com" onChange={e => setUserName(e.target.value)} />
         </div>
         <div className="col-auto">
           <div className="input-group">
             <label htmlFor="inputPassword" className="visually-hidden">Password</label>
-            <input type="password" className="form-control" id="inputPassword" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+            <input type="password" className="form-control" id="inputPassword" placeholder="Password" data-testid="password" onChange={e => setPassword(e.target.value)} />
             <div className="input-group-text">
               <input className="form-check-input mt-0" type="checkbox" aria-label="Checkbox for following text input" onChange={showHidePassword}/>
             </div>

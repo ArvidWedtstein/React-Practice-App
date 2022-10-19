@@ -3,6 +3,7 @@ import * as THREE from 'three';
 
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export default class ViewGL {
     scene: THREE.Scene;
@@ -10,6 +11,7 @@ export default class ViewGL {
     camera: THREE.PerspectiveCamera;
     OBJLoader: OBJLoader;
     MTLLoader: MTLLoader;
+    Controls: OrbitControls;
     constructor(canvasRef: HTMLCanvasElement) {
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color( 0xffffff );
@@ -21,6 +23,12 @@ export default class ViewGL {
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.OBJLoader = new OBJLoader();
         this.MTLLoader = new MTLLoader();
+
+        const light = new THREE.PointLight()
+        light.position.set(2.5, 7.5, 15)
+        this.scene.add(light)
+
+        this.Controls = new OrbitControls(this.camera, this.renderer.domElement);
 
         this.renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -54,14 +62,15 @@ export default class ViewGL {
     }
     update(t?: any) {
         this.renderer.render(this.scene, this.camera);
+        this.Controls.update();
         requestAnimationFrame(this.update.bind(this));
     }
 
     OBJ(): void {
-        this.MTLLoader.load('OB.mtl', (materials) => {
+        this.MTLLoader.load('olenbetong2.mtl', (materials) => {
             materials.preload()
             this.OBJLoader.setMaterials(materials);
-            this.OBJLoader.load('OB.obj', (obj) => {
+            this.OBJLoader.load('olenbetong2.obj', (obj) => {
                 obj.scale.set(0.2, 0.2, 0.2);
                 obj.position.set(0, 0, 0);
                 this.scene.add(obj);

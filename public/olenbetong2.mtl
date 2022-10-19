@@ -1,0 +1,12 @@
+# Blender 3.3.0 MTL File: 'olenbetong2.blend'
+# www.blender.org
+
+newmtl Material.001
+Ns 150.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.234550 0.048172
+Ks 0.300000 0.500000 0.400000
+Ke 0.000000 0.000000 0.000000
+Ni 0.440000
+d 1.000000
+illum 3

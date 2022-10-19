@@ -1,6 +1,6 @@
 # Blender 3.3.0
 # www.blender.org
-mtllib OB.mtl
+mtllib olenbetong.mtl
 o Plane
 v -1.876772 3.429561 -2.964664
 v 2.938046 3.429561 -3.248392
