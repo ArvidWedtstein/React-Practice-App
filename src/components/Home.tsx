@@ -11,20 +11,20 @@ const Home = () => {
  }, []);
 
   return (
-    <>
+    <ol className="container mt-3 list-group list-group-numbered">
       {data &&
-        data.map((item) => {
+        data.map((item, i) => {
           return (
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">{item.title}</h5>
-                <p className="card-text">{item.id}</p>
-                <a href="#" className={`btn btn-outline-${item.completed ? "success" : "danger"}`}>{item.completed ? "✅" : "❌"}</a>
+            <li className="list-group-item d-flex justify-content-between align-items-start" key={i}>
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">{item.title}</div>
+                Content for list item
               </div>
-            </div>
+              <span className={`badge bg-${item.completed ? "success" : "danger"} rounded-pill`}>{item.completed ? "✔" : "X"}</span>
+            </li>
           )
         })}
-    </>
+    </ol>
   );
 };
 
