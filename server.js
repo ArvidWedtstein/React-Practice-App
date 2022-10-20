@@ -12,7 +12,6 @@ app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const user = Users.find(user => user.email === username && user.password === password);
     if (!user) {
-        console.log(username, password)
         res.status(401).send({ error: 'Invalid email or password' });
         return
     } 

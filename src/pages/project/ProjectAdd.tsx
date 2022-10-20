@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import localize from '../../hooks/useLocale';
 interface Car {
     id: number;
     color: string;
@@ -32,7 +33,7 @@ const ProjectAdd = (props: any): JSX.Element => {
         <div className='container'>
             <form className="row g-3" onSubmit={handleSubmit}>
                 <div className="col-md-6">
-                    <label htmlFor="carBrandFormControlInput" className="form-label">Brand</label>
+                    <label htmlFor="carBrandFormControlInput" className="form-label">{localize('Brand')}</label>
                     <input type="text" className="form-control" list="datalistOptions" id="carBrandFormControlInput" name="brand" placeholder="Type to search..." value={car.brand} onChange={handleChange}  />
                     <datalist id="datalistOptions">
                         <option value="BMW" />
@@ -53,19 +54,19 @@ const ProjectAdd = (props: any): JSX.Element => {
                     </datalist>
                 </div>
                 <div className="col-md-4">
-                    <label htmlFor="carYearFormControlInput" className="form-label">Year</label>
+                    <label htmlFor="carYearFormControlInput" className="form-label">{localize('Year')}</label>
                     <input type="number" className="form-control" id="carYearFormControlInput" name="year" value={car.year} onChange={handleChange} />
                 </div>
                 <div className="col-md-2">
-                    <label htmlFor="exampleColorInput" className="form-label">Color</label>
+                    <label htmlFor="exampleColorInput" className="form-label">{localize('Color')}</label>
                     <input type="color" className="form-control form-control-color" id="exampleColorInput" name="color" value={car.color} title="Choose your color" onChange={handleChange}  />
                 </div>
                 <div className="col-12">
-                    <label htmlFor="carImgFormControlInput" className="form-label">Image</label>
+                    <label htmlFor="carImgFormControlInput" className="form-label">{localize('Image')}</label>
                     <input type="text" className="form-control" id="carImgFormControlInput" name="img" placeholder="https://..." value={car.img} onChange={handleChange} />
                 </div>
                 <div className='col-md-2'>
-                    <button type="submit" className="btn btn-success">Add</button>
+                    <button type="submit" className="btn btn-success">{localize('Add')}</button>
                 </div>
             </form>
         </div>
