@@ -2,14 +2,8 @@
 
 import React from 'react';
 
+import { Car } from '../App';
 
-interface Car {
-    id: number;
-    color: string;
-    brand: string;
-    year: number;
-    img?: string;
-}
 interface IProps {
     car: Car
 }

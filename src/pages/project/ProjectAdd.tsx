@@ -1,20 +1,14 @@
 import React, { FC, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import localize from '../../hooks/useLocale';
-interface Car {
-    id: number;
-    color: string;
-    brand: string;
-    year: number;
-    img?: string;
-}
+import { Car, Cars } from '../../App';
 const ProjectAdd = (props: any): JSX.Element => {
     let p: Car = {
-        brand: "",
+        id: 0 || undefined,
         year: 2000,
+        brand: "",
         color: "",
         img: "",
-        id: 0
     }
     const [car, setInputs] = useState(p);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,8 +19,9 @@ const ProjectAdd = (props: any): JSX.Element => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         props.addCar(car);
+        if (car)
+        Cars.push(car)
         
-
         navigate('/project');
     }
     return (
@@ -34,7 +29,7 @@ const ProjectAdd = (props: any): JSX.Element => {
             <form className="row g-3" onSubmit={handleSubmit}>
                 <div className="col-md-6">
                     <label htmlFor="carBrandFormControlInput" className="form-label">{localize('Brand')}</label>
-                    <input type="text" className="form-control" list="datalistOptions" id="carBrandFormControlInput" name="brand" placeholder="Type to search..." value={car.brand} onChange={handleChange}  />
+                    <input type="text" className="form-control" list="datalistOptions" id="carBrandFormControlInput" name="brand" placeholder="Type to search..." onChange={handleChange}  />
                     <datalist id="datalistOptions">
                         <option value="BMW" />
                         <option value="Audi" />
@@ -55,15 +50,19 @@ const ProjectAdd = (props: any): JSX.Element => {
                 </div>
                 <div className="col-md-4">
                     <label htmlFor="carYearFormControlInput" className="form-label">{localize('Year')}</label>
-                    <input type="number" className="form-control" id="carYearFormControlInput" name="year" value={car.year} onChange={handleChange} />
+                    <input type="number" className="form-control" id="carYearFormControlInput" name="year" onChange={handleChange} />
                 </div>
                 <div className="col-md-2">
                     <label htmlFor="exampleColorInput" className="form-label">{localize('Color')}</label>
-                    <input type="color" className="form-control form-control-color" id="exampleColorInput" name="color" value={car.color} title="Choose your color" onChange={handleChange}  />
+                    <input type="color" className="form-control form-control-color" id="exampleColorInput" name="color" title="Choose your color" onChange={handleChange}  />
                 </div>
-                <div className="col-12">
+                <div className="col-10">
                     <label htmlFor="carImgFormControlInput" className="form-label">{localize('Image')}</label>
-                    <input type="text" className="form-control" id="carImgFormControlInput" name="img" placeholder="https://..." value={car.img} onChange={handleChange} />
+                    <input type="text" className="form-control" id="carImgFormControlInput" name="img" placeholder="https://..." onChange={handleChange} />
+                </div>
+                <div className="col-md-2">
+                    <label htmlFor="carGearboxFormControlInput" className="form-label">{localize('Gearbox')}</label>
+                    <input type="text" className="form-control" id="carGearboxFormControlInput" name="gearbox" onChange={handleChange} />
                 </div>
                 <div className='col-md-2'>
                     <button type="submit" className="btn btn-success">{localize('Add')}</button>

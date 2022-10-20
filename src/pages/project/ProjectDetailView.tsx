@@ -1,13 +1,8 @@
 import React, { FC } from 'react';
 import { Link, Outlet, useParams } from 'react-router-dom';
 import ProjectCard from '../../components/ProjectCard';
+import { Car } from '../../App';
 
-interface Car {
-    id: number;
-    color: string;
-    brand: string;
-    year: number;
-}
 interface IProps {
     cars: Car[]
 }

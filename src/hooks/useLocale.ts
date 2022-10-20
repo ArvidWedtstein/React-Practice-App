@@ -54,6 +54,7 @@ export default function useLocalize(text: string): string {
         }
     }
 
+    if (!translations[text.toLowerCase()]) return text
     let translatedString = String(translations[text.toLowerCase()][lang])
     if (!translatedString) return text
     return translatedString.charAt(0).toUpperCase() + translatedString.slice(1);

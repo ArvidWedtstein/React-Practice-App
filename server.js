@@ -29,4 +29,29 @@ app.post('/login', (req, res) => {
         token: token() + token()
     })
 });
+
+app.patch('/users/:id', (req, res) => {
+    const { id } = req.params;
+    const { name, age, email, password } = req.body;
+    const user = Users.find(user => user.id === Number(id));
+    if (!user) {
+        res.status(404).send({ error: 'User not found' });
+        return
+    }
+
+    
+    if (name) user.name = name;
+    if (age) user.age = age;
+    if (email) user.email = email;
+    if (password) user.password = password;
+
+    res.send({
+        user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            age: user.age
+        }
+    })
+});
 app.listen(8080, () => console.log('Server started on port 8080'));

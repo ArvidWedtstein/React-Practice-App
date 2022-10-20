@@ -12,7 +12,7 @@ const ProjectListView = (props: IProps): JSX.Element => {
         return useMemo(() => new URLSearchParams(search), [search]);
     });
     const query = useQuery();
-    const filteredData = Cars.filter((car) => {
+    let filteredData = Cars.filter((car) => {
         if (!query.get('s')) return car;
 
         let array = query.get('s')?.split(',')?.map((s) => s.trim())
@@ -24,6 +24,21 @@ const ProjectListView = (props: IProps): JSX.Element => {
         
 
     });
+    useEffect(() => {
+        filteredData = Cars.filter((car) => {
+            if (!query.get('s')) return car;
+    
+            let array = query.get('s')?.split(',')?.map((s) => s.trim())
+            if (!array) {
+                return car.brand.toLowerCase().includes(query.get('s') || '');
+            }
+    
+            array = array.map((s) => s.toLowerCase());
+            
+    
+        });
+    }, [query]);
+    
     return (
         <div className='container-fluid'>
             <div className="p-3">

@@ -10,7 +10,7 @@ import ProjectDetailView from './pages/project/ProjectDetailView';
 import ProjectListView from './pages/project/ProjectListView';
 import Error from './pages/main/404';
 import ProjectAdd from './pages/project/ProjectAdd';
-export let Cars = [
+export var Cars: Car[] = [
   { "id": 1, "color":"red", "brand":"Mercedes", "year":2049 },
   { "id": 2, "color":"blue", "brand":"Audi", "year":2018 },
   { "id": 3, "color":"green", "brand":"Volvo", "year":2019 },
@@ -20,11 +20,12 @@ export let Cars = [
 ];
 
 export interface Car {
+  id?: number;
   color: string;
   brand: string;
   year: number;
   img?: string;
-  id?: number;
+  gearbox?: "Automatic" | "Manual";
 }
 const reducer = (state: Car[], action: any) => {
   switch (action.type) {
