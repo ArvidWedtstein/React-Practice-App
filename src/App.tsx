@@ -10,7 +10,7 @@ import ProjectDetailView from './pages/project/ProjectDetailView';
 import ProjectListView from './pages/project/ProjectListView';
 import Error from './pages/main/404';
 import ProjectAdd from './pages/project/ProjectAdd';
-let Cars = [
+export let Cars = [
   { "id": 1, "color":"red", "brand":"Mercedes", "year":2049 },
   { "id": 2, "color":"blue", "brand":"Audi", "year":2018 },
   { "id": 3, "color":"green", "brand":"Volvo", "year":2019 },
@@ -18,7 +18,8 @@ let Cars = [
   { "id": 5, "color":"black", "brand":"Ford", "year":2016 },
   { "id": 6, "color":"white", "brand":"Fiat", "year":2015, img: 'https://preview.redd.it/ui3zesfmnfu91.jpg?width=108&crop=smart&auto=webp&s=5d65219ea7be97c0a532a4ce453710f3d9abd06c' }
 ];
-interface Car {
+
+export interface Car {
   color: string;
   brand: string;
   year: number;

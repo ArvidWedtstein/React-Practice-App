@@ -12,7 +12,7 @@ const NavItem = ({ ...props }: any) => {
         className = className + " active";
     }
     return (
-        <Link to={to} className={className}>{children}</Link>
+        <Link to={to} className={className} data-testid="navbar">{children}</Link>
     );
 };
 
