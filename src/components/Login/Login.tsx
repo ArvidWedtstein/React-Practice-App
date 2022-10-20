@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-async function loginUser(credentials:unknown) {
+
+export const loginUser = ((credentials:unknown) => {
   return fetch('http://localhost:8080/login', {
     method: 'POST',
     headers: {
@@ -10,7 +11,7 @@ async function loginUser(credentials:unknown) {
     body: JSON.stringify(credentials)
   })
     .then(data => data.json())
-}
+});
 
 export default function Login({ setToken }: any) {
   const [username, setUserName] = useState<string>();
@@ -37,7 +38,6 @@ export default function Login({ setToken }: any) {
       passwordInput.setAttribute('type', 'password');
     }
   }
-
 
   return(
     <div className="d-flex flex-column align-items-center">
