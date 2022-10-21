@@ -34,8 +34,6 @@ const ProjectListView = (props: IProps): JSX.Element => {
             }
     
             array = array.map((s) => s.toLowerCase());
-            
-    
         });
     }, [query]);
     
