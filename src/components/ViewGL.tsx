@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export default class ViewGL {
@@ -10,43 +11,56 @@ export default class ViewGL {
     camera: THREE.PerspectiveCamera;
     OBJLoader: OBJLoader;
     MTLLoader: MTLLoader;
+    GLTFLoader: GLTFLoader;
     Controls: OrbitControls;
+    Logo: any;
     constructor(canvasRef: HTMLCanvasElement) {
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color( 0xffffff );
+        this.scene.background = new THREE.Color( 0x000000 );
         this.renderer = new THREE.WebGLRenderer({
             canvas: canvasRef,
-            antialias: false,
+            antialias: true,
             
         });
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.OBJLoader = new OBJLoader();
         this.MTLLoader = new MTLLoader();
+        this.GLTFLoader = new GLTFLoader();
 
-        const light = new THREE.PointLight()
-        light.position.set(2.5, 7.5, 15)
-        this.scene.add(light)
 
         this.Controls = new OrbitControls(this.camera, this.renderer.domElement);
 
         this.renderer.setSize(window.innerWidth, window.innerHeight);
 
         this.camera.lookAt( this.scene.position );
+        this.init();
+    }   
+    init() {
+        const spot = new THREE.SpotLight(0xffffff, 3, 1000);
+        spot.position.set(0, 5, 0)
+        spot.castShadow = false
+        spot.lookAt(0, 0, 0)
+        this.scene.add(spot)
 
-        const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-        const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-        const cube = new THREE.Mesh( geometry, material );
-        this.scene.add( cube );
-        cube.position.x = 10
+        const light = new THREE.PointLight(0xffe900, 3, 1000);
+        light.position.set(-5, -6, 5)
+        light.castShadow = true
+        light.lookAt(0, 0, 0)
+        const lightHelper = new THREE.PointLightHelper( light, 1, 0xff0000 );
+        this.scene.add(light)
+        lightHelper.position.set(-5, -6, 10)
+        this.scene.add(lightHelper)
 
-        this.OBJ();
-        
+
+        // this.OBJ();
+        this.GLTF();
+                
         this.camera.rotation.x = -0.8;
-        this.camera.position.z = 3;
+        this.camera.position.z = 1;
         this.camera.position.y = 4;
         this.update();
-    }   
-
+        
+    }
     updateValue(value: any) {
         // var memory = new WebAssembly.Memory({initial:10, maximum:100});
         // memory.grow(10);
@@ -61,6 +75,13 @@ export default class ViewGL {
     }
     update(t?: any) {
         this.renderer.render(this.scene, this.camera);
+
+
+        let tempVector = new THREE.Vector3(0,0,0)
+
+        this.camera.lookAt(tempVector)
+
+
         this.Controls.update();
         requestAnimationFrame(this.update.bind(this));
     }
@@ -75,5 +96,16 @@ export default class ViewGL {
                 this.scene.add(obj);
             });
         })
+    }
+    GLTF(): void {
+        this.GLTFLoader.load('olenbetong2.gltf', (gltf) => {
+            const scene = gltf.scene.copy(new THREE.Group());
+            scene.scale.set(0.2, 0.2, 0.2);
+            scene.position.set(0, 0, 0);
+            scene.rotateX(-Math.PI / 2);
+            scene.rotateY((Math.PI / 2) / 2);
+            this.Logo = scene
+            this.scene.add(scene);
+        });
     }
 }
