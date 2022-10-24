@@ -55,8 +55,8 @@ export default class ViewGL {
         // this.OBJ();
         this.GLTF();
                 
-        this.camera.rotation.x = -0.8;
-        this.camera.position.z = 1;
+        // this.camera.rotation.x = -0.2;
+        this.camera.position.z = 8;
         this.camera.position.y = 4;
         this.update();
         
@@ -102,6 +102,7 @@ export default class ViewGL {
             const scene = gltf.scene.copy(new THREE.Group());
             scene.scale.set(0.2, 0.2, 0.2);
             scene.position.set(0, 0, 0);
+            scene.rotateOnAxis(new THREE.Vector3(0,1,0),180* Math.PI / 180)
             scene.rotateX(-Math.PI / 2);
             scene.rotateY((Math.PI / 2) / 2);
             this.Logo = scene
