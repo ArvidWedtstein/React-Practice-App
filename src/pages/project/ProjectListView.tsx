@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, memo } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import ProjectCard from '../../components/ProjectCard';
 import { Car, Cars } from '../../App';
@@ -51,4 +51,4 @@ const ProjectListView = (props: IProps): JSX.Element => {
     )
 };
 
-export default ProjectListView;
+export default memo(ProjectListView);

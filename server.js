@@ -8,6 +8,14 @@ app.use(cors());
 let Users = [
     { "id": 1, "name":"John", "age":20, "email":"john@john.john", "password":"johnjohn" },
 ];
+let Cars = [
+    { "id": 1, "color":"red", "brand":"Mercedes", "year":2049 },
+    { "id": 2, "color":"blue", "brand":"Audi", "year":2018 },
+    { "id": 3, "color":"green", "brand":"Volvo", "year":2019 },
+    { "id": 4, "color":"yellow", "brand":"BMW", "year":2017 },
+    { "id": 5, "color":"black", "brand":"Ford", "year":2016 },
+    { "id": 6, "color":"white", "brand":"Fiat", "year":2015, img: 'https://preview.redd.it/ui3zesfmnfu91.jpg?width=108&crop=smart&auto=webp&s=5d65219ea7be97c0a532a4ce453710f3d9abd06c' }
+];
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const user = Users.find(user => user.email === username && user.password === password);
@@ -29,7 +37,9 @@ app.post('/login', (req, res) => {
         token: token() + token()
     })
 });
-
+app.get('/cars', (req, res) => {
+    res.send(Cars);
+});
 app.patch('/users/:id', (req, res) => {
     const { id } = req.params;
     const { name, age, email, password } = req.body;

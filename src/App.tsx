@@ -11,14 +11,14 @@ import ProjectListView from './pages/project/ProjectListView';
 import Error from './pages/main/404';
 import ProjectAdd from './pages/project/ProjectAdd';
 export var Cars: Car[] = [
-  { "id": 1, "color":"red", "brand":"Mercedes", "year":2049 },
-  { "id": 2, "color":"blue", "brand":"Audi", "year":2018 },
-  { "id": 3, "color":"green", "brand":"Volvo", "year":2019 },
-  { "id": 4, "color":"yellow", "brand":"BMW", "year":2017 },
-  { "id": 5, "color":"black", "brand":"Ford", "year":2016 },
-  { "id": 6, "color":"white", "brand":"Fiat", "year":2015, img: 'https://preview.redd.it/ui3zesfmnfu91.jpg?width=108&crop=smart&auto=webp&s=5d65219ea7be97c0a532a4ce453710f3d9abd06c' }
+  { "id": 1, "color":"255, 0, 0", "brand":"Mercedes", "year":2049 },
+  { "id": 2, "color":"0, 0, 255", "brand":"Audi", "year":2018 },
+  { "id": 3, "color":"0, 255, 0", "brand":"Volvo", "year":2019 },
+  { "id": 4, "color":"255, 255, 0", "brand":"BMW", "year":2017 },
+  { "id": 5, "color":"0, 0, 0", "brand":"Ford", "year":2016 },
+  { "id": 6, "color":"255, 12, 255", "brand":"Fiat", "year":2015, gearbox: 'Manual', img: 'https://preview.redd.it/ui3zesfmnfu91.jpg?width=108&crop=smart&auto=webp&s=5d65219ea7be97c0a532a4ce453710f3d9abd06c' }
 ];
-
+export const lang = 'no-no'
 export interface Car {
   id?: number;
   color: string;
@@ -30,6 +30,7 @@ export interface Car {
 const reducer = (state: Car[], action: any) => {
   switch (action.type) {
     case "add":
+      console.log(action.payload);
       return [...state, action.payload];
     case "delete":
       return state.filter((car, i) => i !== action.payload.payload);

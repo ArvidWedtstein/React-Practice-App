@@ -70,6 +70,13 @@ export default class ViewGL {
 
     }
 
+    fibonacci(n: number): number {
+        if (n <= 1) {
+            return n;
+        }
+        return this.fibonacci(n - 1) + this.fibonacci(n - 2);
+    }
+
     onWindowResize(vpW: any, vpH: any) {
         this.renderer.setSize(vpW, vpH);
     }
@@ -107,6 +114,8 @@ export default class ViewGL {
             scene.rotateY((Math.PI / 2) / 2);
             this.Logo = scene
             this.scene.add(scene);
+
+            console.log(this.fibonacci(6))
         });
     }
 }
