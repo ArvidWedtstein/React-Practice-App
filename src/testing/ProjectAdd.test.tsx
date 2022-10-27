@@ -33,7 +33,6 @@ describe('Add Car to List Of Cars', () => {
             expect(el).toBeVisible();
             expect(el).toBeEnabled();
             expect(el).not.toBeNull();
-            
         });
     });
 
